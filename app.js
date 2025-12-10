@@ -11,7 +11,7 @@ app.use(express.json())
 app.use("/movies", moviesRouter)
 
 app.get("/", (res, req) => {
-    res.setEncoding("server")
+    res.send("server")
 })
 
 app.listen(port, () => {
