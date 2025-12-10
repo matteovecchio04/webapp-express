@@ -29,4 +29,21 @@ const show = (req, res) => {
         if (err) return res.status(500).json({ error: "query failed" })
         if (movieResults.length === 0) return res.status(404).json({ error: "movie not found" })
     })
+
+    // get movie
+    const movie = movieResults[0]
+
+    // if the first query doesn't fail, it runs this second one
+    connection.query(reviewsSql, [id], (err, reviewsResults) => {
+        if (err) return res.status(500).json({ error: "query failed" })
+
+        // add reviews to movie
+        movie.reviews = reviewsResults
+        res.json(movie)
+    })
+}
+
+module.exports = {
+    index,
+    show
 }
