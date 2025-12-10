@@ -13,3 +13,20 @@ const index = (req, res) => {
         res.json(results)
     })
 }
+
+const show = (req, res) => {
+    console.log("Request recieved (show)");
+
+    // grab id from url
+    const id = req.params.id
+
+    const moviesSql = "SELECT * FROM `movies` WHERE id = ?"
+
+    // prep query for reviews
+    const reviewsSql = "SELECT name, vote, text FROM `reviews` WHERE id = ?"
+
+    connection.query(moviesSql, [id], (err, movieResults) => {
+        if (err) return res.status(500).json({ error: "query failed" })
+        if (movieResults.length === 0) return res.status(404).json({ error: "movie not found" })
+    })
+}
