@@ -1,6 +1,6 @@
 const express = require("express")
-const db = require("./data/db.js")
-const moviesRouter = require("./routers/movies.js")
+const db = require("./data/db")
+const moviesRouter = require("./routers/movies")
 
 const app = express()
 const port = 3000
@@ -10,8 +10,8 @@ app.use(express.json())
 
 app.use("/movies", moviesRouter)
 
-app.get("/", (res, req) => {
-    res.send("server")
+app.get("/", (req, res) => {
+    res.send("server online")
 })
 
 app.listen(port, () => {
