@@ -25,13 +25,14 @@ const show = (req, res) => {
     // prep query for reviews
     const reviewsSql = "SELECT name, vote, text FROM `reviews` WHERE id = ?"
 
+    let movie
+
     connection.query(moviesSql, [id], (err, movieResults) => {
         if (err) return res.status(500).json({ error: "query failed" })
         if (movieResults.length === 0) return res.status(404).json({ error: "movie not found" })
+        // get movie
+        movie = movieResults[0]
     })
-
-    // get movie
-    const movie = movieResults[0]
 
     // if the first query doesn't fail, it runs this second one
     connection.query(reviewsSql, [id], (err, reviewsResults) => {
